@@ -2,8 +2,6 @@ name: 24/7 Stream
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 */6 * * *'
 
 jobs:
   stream:
@@ -19,9 +17,7 @@ jobs:
           pip install yt-dlp
 
       - name: Start Live Stream
-        env:
-          STREAM_KEY: ${{ secrets.STREAM_KEY }}
         run: |
           URL="https://youtube.com/shorts/Z0sMcD8mh28?si=EKakBs0eM7i1-iyd"
           VIDEO_URL=$(yt-dlp -g -f "best" "$URL")
-          ffmpeg -re -stream_loop -1 -i "$VIDEO_URL" -c:v libx264 -preset veryfast -b:v 2500k -maxrate 2500k -bufsize 5000k -pix_fmt yuv420p -g 50 -c:a aac -b:a 128k -f flv "rtmp://a.rtmp.youtube.com/live2/$STREAM_KEY"
+          ffmpeg -re -stream_loop -1 -i "$VIDEO_URL" -c:v libx264 -preset veryfast -b:v 2500k -maxrate 2500k -bufsize 5000k -pix_fmt yuv420p -g 50 -c:a aac -b:a 128k -f flv "rtmp://a.rtmp.youtube.com/live2/b55a-s2zd-de1q-5v0v-e13y"
