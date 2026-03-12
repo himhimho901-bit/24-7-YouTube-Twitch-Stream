@@ -7,12 +7,7 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-
-      - name: Install FFmpeg
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
-
       - name: Start Live Stream
         run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
           ffmpeg -re -stream_loop -1 -i "video.mp4" -c:v libx264 -preset veryfast -b:v 2000k -maxrate 2000k -bufsize 4000k -pix_fmt yuv420p -g 50 -c:a aac -b:a 128k -f flv "rtmp://a.rtmp.youtube.com/live2/b55a-s2zd-de1q-5v0v-e13y"
